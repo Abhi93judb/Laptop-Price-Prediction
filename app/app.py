@@ -58,7 +58,7 @@ warranty = st.sidebar.selectbox(
     "Warranty (Years)",
     sorted(raw_df["warranty"].unique())
 )
-if st.sidebar.button("🔮 Predict Laptop Price", use_container_width=True):
+if st.sidebar.button("🔮 Predict Laptop Price", width="stretch"):
 
     input_data = {
         "spec_rating": spec_rating,
@@ -132,7 +132,9 @@ if st.sidebar.button("🔮 Predict Laptop Price", use_container_width=True):
             f"{warranty} Year(s)"
         ]
     })
+    
+    config["Selected Value"] = config["Selected Value"].astype(str)
 
-    st.dataframe(config, use_container_width=True, hide_index=True)
+    st.dataframe(config, width="stretch", hide_index=True)
 
     st.success("✅ Prediction Completed Successfully!")
