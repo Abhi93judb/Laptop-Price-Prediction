@@ -84,13 +84,55 @@ if st.sidebar.button("🔮 Predict Laptop Price", use_container_width=True):
     with st.spinner("Predicting laptop price..."):
        prediction = model.predict(input_df)
 
-    st.success(f"💰 Estimated Laptop Price: ₹{prediction[0]:,.0f}")
-    
+    st.divider()
+
+st.subheader("💰 Prediction Result")
+
+col1, col2 = st.columns([2, 1])
+
+with col1:
+    st.metric(
+        label="Estimated Laptop Price",
+        value=f"₹ {prediction[0]:,.0f}"
+    )
+
+with col2:
     if prediction[0] < 40000:
-        st.info("💵 Category: Budget Laptop")
-
+        st.success("💵 Budget")
     elif prediction[0] < 80000:
-        st.info("⚡ Category: Mid-Range Laptop")
-
+        st.warning("⚡ Mid-Range")
     else:
-        st.info("🔥 Category: Premium Laptop")
+        st.error("🔥 Premium")
+
+st.divider()
+
+st.subheader("📋 Selected Laptop Configuration")
+
+config = pd.DataFrame({
+    "Specification": [
+        "Brand",
+        "Processor",
+        "RAM",
+        "Storage",
+        "Operating System",
+        "GPU",
+        "Display",
+        "Specification Rating",
+        "Warranty"
+    ],
+    "Selected Value": [
+        brand,
+        processor,
+        f"{ram} GB",
+        f"{rom} GB",
+        os,
+        gpu,
+        display_size,
+        spec_rating,
+        f"{warranty} Year(s)"
+    ]
+})
+
+st.dataframe(config, use_container_width=True, hide_index=True)
+
+st.success("✅ Prediction Completed Successfully!")
