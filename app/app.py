@@ -9,20 +9,91 @@ st.set_page_config(
     layout="wide"
 )
 
+st.markdown("""
+<style>
+
+.main-title{
+    font-size:42px;
+    font-weight:700;
+    color:#2E86DE;
+    margin-bottom:5px;
+}
+
+.subtitle{
+    font-size:20px;
+    color:#555;
+    margin-bottom:20px;
+}
+
+.hero-card{
+    background:#f8f9fa;
+    padding:25px;
+    border-radius:15px;
+    border-left:8px solid #2E86DE;
+    margin-bottom:25px;
+}
+
+.footer{
+    text-align:center;
+    color:gray;
+    font-size:15px;
+    margin-top:50px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
 raw_df = joblib.load("models/raw_dataset.pkl")
 model_columns = joblib.load("models/model_columns.pkl")
 
-st.title("💻 Laptop Price Prediction")
-
 st.markdown("""
-### 🤖 Machine Learning Based Laptop Price Prediction
+<div class="hero-card">
 
-Enter the laptop specifications from the left sidebar and click **Predict Price** to estimate the laptop price using a trained Machine Learning model.
+<div class="main-title">
+💻 Laptop Price Prediction
+</div>
 
----
+<div class="subtitle">
+Machine Learning Based Web Application
+</div>
+
+Predict laptop prices instantly using a trained Machine Learning model.
+
+<br>
+
+✅ Fast Prediction
+
+✅ Interactive UI
+
+✅ Scikit-learn Model
+
+✅ Streamlit Deployment
+
+</div>
+""", unsafe_allow_html=True)
+model = joblib.load("models/laptop_price_prediction_model.pkl")
+
+st.info("""
+### 📊 Model Information
+
+- **Algorithm:** Random Forest Regressor
+- **Problem Type:** Regression
+- **Features Used:** 11
+- **Target Variable:** Laptop Price (₹)
+- **Deployment:** Streamlit Cloud
 """)
 
-model = joblib.load("models/laptop_price_prediction_model.pkl")
+with st.expander("📁 Dataset Information"):
+
+    st.write(f"**Total Records:** {len(raw_df)}")
+
+    st.write(f"**Brands:** {raw_df['brand'].nunique()}")
+
+    st.write(f"**Processors:** {raw_df['processor'].nunique()}")
+
+    st.write(f"**Operating Systems:** {raw_df['OS'].nunique()}")
+
+    st.write(f"**GPUs:** {raw_df['GPU'].nunique()}")
 
 st.sidebar.header("💻 Laptop Specifications")
 
@@ -58,6 +129,21 @@ warranty = st.sidebar.selectbox(
     "Warranty (Years)",
     sorted(raw_df["warranty"].unique())
 )
+st.sidebar.divider()
+
+st.sidebar.markdown("## ℹ️ About")
+
+st.sidebar.info("""
+**Model:** Random Forest Regressor
+
+**Language:** Python
+
+**Framework:** Streamlit
+
+**ML Library:** Scikit-learn
+
+**Version:** 1.2
+""")
 if st.sidebar.button("🔮 Predict Laptop Price", width="stretch"):
 
     input_data = {
@@ -91,6 +177,9 @@ if st.sidebar.button("🔮 Predict Laptop Price", width="stretch"):
     col1, col2 = st.columns([2, 1])
 
     with col1:
+        
+        st.balloons()
+        
         st.metric(
             label="Estimated Laptop Price",
             value=f"₹ {prediction[0]:,.0f}"
@@ -103,6 +192,25 @@ if st.sidebar.button("🔮 Predict Laptop Price", width="stretch"):
             st.warning("⚡ Mid-Range")
         else:
             st.error("🔥 Premium")
+            
+    st.divider()
+
+    st.subheader("💡 Recommendation")
+
+    if prediction[0] < 40000:
+        st.info(
+            "This laptop is suitable for students, office work, web browsing and daily tasks."
+        )
+
+    elif prediction[0] < 80000:
+        st.info(
+            "This laptop is ideal for programming, multitasking, content creation and moderate gaming."
+        )
+
+    else:
+        st.info(
+            "This laptop is recommended for professionals, AI/ML workloads, video editing and high-end gaming."
+        )
 
     st.divider()
 
@@ -138,3 +246,17 @@ if st.sidebar.button("🔮 Predict Laptop Price", width="stretch"):
     st.dataframe(config, width="stretch", hide_index=True)
 
     st.success("✅ Prediction Completed Successfully!")
+    
+st.markdown("---")
+
+st.markdown("""
+<div class="footer">
+
+<b>Developed by Abhishek Kumar Pandey</b><br>
+
+Machine Learning | Python | Scikit-learn | Streamlit
+
+© 2026 All Rights Reserved
+
+</div>
+""", unsafe_allow_html=True)
