@@ -23,9 +23,12 @@ Enter the laptop specifications from the left sidebar and click **Predict Price*
 """)
 
 model = joblib.load("models/laptop_price_prediction_model.pkl")
-st.success("✅ Model Loaded Successfully!")
 
 st.sidebar.header("💻 Laptop Specifications")
+
+st.sidebar.markdown("""
+Select the laptop configuration below and click **Predict Laptop Price**.
+""")
 
 brand = st.sidebar.selectbox("Brand", sorted(raw_df["brand"].unique()))
 
@@ -55,7 +58,7 @@ warranty = st.sidebar.selectbox(
     "Warranty (Years)",
     sorted(raw_df["warranty"].unique())
 )
-if st.sidebar.button("Predict Price"):
+if st.sidebar.button("🔮 Predict Laptop Price", use_container_width=True):
 
     input_data = {
         "spec_rating": spec_rating,
@@ -78,7 +81,8 @@ if st.sidebar.button("Predict Price"):
 
     input_df = input_df.reindex(columns=model_columns, fill_value=0)
     
-    prediction = model.predict(input_df)
+    with st.spinner("Predicting laptop price..."):
+       prediction = model.predict(input_df)
 
     st.success(f"💰 Estimated Laptop Price: ₹{prediction[0]:,.0f}")
     
