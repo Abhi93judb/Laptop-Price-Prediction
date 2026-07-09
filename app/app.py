@@ -246,6 +246,26 @@ if st.sidebar.button("🔮 Predict Laptop Price", width="stretch"):
     st.dataframe(config, width="stretch", hide_index=True)
 
     st.success("✅ Prediction Completed Successfully!")
+    st.subheader("📈 Prediction Summary")
+
+    summary = pd.DataFrame({
+        "Item": [
+            "Estimated Price",
+            "Brand",
+            "Processor",
+            "RAM",
+            "Storage"
+        ],
+        "Value": [
+            f"₹ {prediction[0]:,.0f}",
+            brand,
+            processor,
+            f"{ram} GB",
+            f"{rom} GB"
+        ]
+    })
+
+    st.dataframe(summary, hide_index=True, width="stretch")
     
 st.markdown("---")
 
@@ -260,3 +280,6 @@ Machine Learning | Python | Scikit-learn | Streamlit
 
 </div>
 """, unsafe_allow_html=True)
+
+
+    
