@@ -1,5 +1,10 @@
 # 💻 Laptop Price Prediction using Machine Learning
 
+![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python)
+![Streamlit](https://img.shields.io/badge/Streamlit-Deployed-red?logo=streamlit)
+![Scikit-learn](https://img.shields.io/badge/Scikit--Learn-ML-orange?logo=scikitlearn)
+![License](https://img.shields.io/badge/License-MIT-green)
+
 A Machine Learning web application that predicts the price of a laptop based on its specifications. The project is built using Python, Scikit-learn, and Streamlit.
 
 ---
@@ -23,6 +28,23 @@ A Machine Learning web application that predicts the price of a laptop based on 
 - Streamlit
 - Pickle
 - Git & GitHub
+
+---
+## 🌐 Live Demo
+
+[🚀 Open Live Demo](https://laptop-price-prediction-abhi.streamlit.app/)
+
+---
+
+## 📸 Application Screenshots
+
+### Home Page
+
+<img width="100%" src="images/home.png">
+
+### Prediction Result
+
+<img width="100%" src="images/prediction.png">
 
 ---
 
@@ -107,5 +129,5 @@ streamlit run app/app.py
 
 **Abhishek Kumar Pandey**
 
-GitHub:
-https://github.com/Abhi93judb
+- GitHub: https://github.com/Abhi93judb
+- LinkedIn: https://www.linkedin.com/in/YOUR-LINKEDIN-ID
